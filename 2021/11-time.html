@@ -25,6 +25,9 @@
             <li><button class="outline">시간순</button></li>
         </ul>
     </nav>
+	<nav aria-label="제목으로 검색">
+        <input type="text" class="search" placeholder="🔍 제목으로 검색하기"/>
+    </nav>
 </header>
 <main class="container">
     <div class="row searchable">
@@ -6455,3 +6458,20 @@
 </footer>
 </body>
 </html>
+
+<script>
+;(function search () {
+  ;[...document.querySelectorAll('.searchable')].forEach(makeSearchable)
+  function makeSearchable ($searchable) {
+    const $searchableItems = [...$searchable.querySelectorAll('.searchable-item')]
+    const $search = document.querySelector('.search')
+    $search.addEventListener('keyup', (e) => {
+      $searchableItems.forEach(function ($el) {
+        const text = $el.getAttribute('data-search') || $el.innerText
+        const show = new RegExp(e.target.value, 'i').test(text)
+        $el.style.display = show ? '' : 'none'
+      })
+    })
+  }
+})()
+</script>
